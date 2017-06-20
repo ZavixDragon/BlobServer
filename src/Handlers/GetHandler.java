@@ -1,11 +1,7 @@
 package Handlers;
 
-import InputStreamToString;
 import IncomingRequests.GetRequest;
 import OutgoingResponses.GetResponse;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
 import rpc.RpcCallHandler;
 
 import java.io.InputStream;
