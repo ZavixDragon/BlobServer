@@ -1,3 +1,5 @@
+package Common;
+
 import java.io.InputStream;
 
 public class InputStreamToString {
