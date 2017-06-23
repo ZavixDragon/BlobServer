@@ -1,3 +1,5 @@
+package WebRequests;
+
 import java.io.InputStream;
 
 public class InputStreamToString {
