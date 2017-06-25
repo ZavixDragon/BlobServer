@@ -8,34 +8,19 @@ import java.net.URL;
 import java.util.function.Supplier;
 
 public class PostJsonWebRequest<Input, Output> implements WebRequest<Output> {
-    private Supplier<URL> getUrl;
-    private Input content;
-    private Class<Output> outputType;
-    private Gson gson;
-
-    public PostJsonWebRequest(String url, Input content, Class<Output> outputType) {
-        constructor(() -> {
-            try {
-                return new URL(url);
-            } catch (MalformedURLException ex) {
-                throw new RuntimeException(url, ex);
-            }
-        }, content, outputType);
-    }
+    private final URL url;
+    private final Input content;
+    private final Class<Output> outputType;
+    private final Gson gson = new Gson();
 
     public PostJsonWebRequest(URL url, Input content, Class<Output> outputType) {
-        constructor(() -> url, content, outputType);
-    }
-
-    private void constructor(Supplier<URL> getUrl, Input content, Class<Output> outputType) {
-        this.getUrl = getUrl;
+        this.url = url;
         this.content = content;
         this.outputType = outputType;
-        this.gson = new Gson();
     }
 
     public Output resolve() {
-        InputStreamReader reader = new PostWebRequest(getUrl, gson.toJson(content), "application/json; charset=UTF-8", "application/json").resolve();
+        InputStreamReader reader = new InputStreamReader(new PostWebRequest(url, gson.toJson(content), "application/json; charset=UTF-8", "application/json").resolve());
         return gson.fromJson(reader, outputType);
     }
 }

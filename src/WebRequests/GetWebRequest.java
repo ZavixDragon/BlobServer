@@ -1,52 +1,48 @@
 package WebRequests;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.function.Supplier;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GetWebRequest implements WebRequest<InputStreamReader> {
-    private Supplier<URL> getUrl;
-    private String outputType;
+public class GetWebRequest implements WebRequest<InputStream> {
+    private URL url;
+    private String method;
+    private Map<String, String> headers;
 
-    public GetWebRequest(String url, String outputType) {
-        constructor(() -> {
-            try {
-                return new URL(url);
-            } catch (MalformedURLException ex) {
-                throw new RuntimeException(url, ex);
-            }
-        }, outputType);
+    public GetWebRequest(URL url) {
+        this(url, "GET");
     }
 
-    public GetWebRequest(URL url, String outputType) {
-        constructor(() -> url, outputType);
+    public GetWebRequest(URL url, String method) {
+        this(url, method, new HashMap<>());
     }
 
-    public GetWebRequest(Supplier<URL> getUrl, String outputType) {
-        constructor(getUrl, outputType);
+    public GetWebRequest(URL url, String method, Map<String, String> headers) {
+        this.url = url;
+        this.method = method;
+        this.headers = headers;
     }
 
-    private void constructor(Supplier<URL> getUrl, String outputType) {
-        this.getUrl = getUrl;
-        this.outputType = outputType;
-    }
-
-    public InputStreamReader resolve() {
+    public InputStream resolve() {
+        HttpURLConnection connection = null;
         try {
-            return new InputStreamReader(openConnection().getInputStream());
+            connection = openConnection();
+            return connection.getInputStream();
         } catch(Exception ex) {
-            throw new RuntimeException("GET", ex);
+            throw new RuntimeException(ex);
         }
     }
 
     private HttpURLConnection openConnection() throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) getUrl.get().openConnection();
-        connection.setRequestMethod("GET");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(method);
+        connection.setUseCaches(false);
         connection.setDoOutput(true);
-        connection.setRequestProperty("Accept", outputType);
+        connection.setDoInput(true);
+        headers.entrySet().forEach(x -> connection.setRequestProperty(x.getKey(), x.getValue()));
         return connection;
     }
 }

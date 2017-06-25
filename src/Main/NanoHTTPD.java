@@ -1,4 +1,4 @@
-/*
+package Main;/*
  * #%L
  * NanoHttpd-Core
  * %%
