@@ -1,4 +1,4 @@
-package WebRequests;
+package Main;
 
 import java.io.InputStream;
 

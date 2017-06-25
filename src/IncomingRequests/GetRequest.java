@@ -3,7 +3,11 @@ package IncomingRequests;
 import rpc.RpcRequest;
 
 public final class GetRequest extends RpcRequest {
-    private String id;
+    public String Id;
+    public String Bucket;
 
-    public String getId() { return id; }
+    public GetRequest(String id, String bucket) {
+        Id = id;
+        Bucket = bucket;
+    }
 }

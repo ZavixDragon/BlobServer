@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BlobAuthServer.iml" filepath="$PROJECT_DIR$/BlobAuthServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BlobServer.iml" filepath="$PROJECT_DIR$/.idea/BlobServer.iml" />
     </modules>
   </component>
 </project>

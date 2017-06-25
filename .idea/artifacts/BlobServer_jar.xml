@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BlobServer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BlobServer_jar</output-path>
+    <root id="archive" name="BlobServer.jar">
+      <element id="module-output" name="BlobServer" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/litejavarpc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/gson-2.6.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
