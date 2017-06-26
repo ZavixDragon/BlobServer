@@ -1,8 +1,6 @@
-package Handlers;
+package Get;
 
 import Amazon.AmazonGetWebRequest;
-import IncomingRequests.GetRequest;
-import OutgoingResponses.GetResponse;
 import rpc.RpcCallHandler;
 
 public class GetHandler extends RpcCallHandler<GetRequest, GetResponse> {

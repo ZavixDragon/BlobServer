@@ -1,4 +1,4 @@
-package OutgoingRequests;
+package MinAuth;
 
 public final class LoginRequest {
     public final String Username;

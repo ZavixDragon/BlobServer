@@ -1,24 +1,23 @@
-package Handlers;
+package Remove;
 
-import Amazon.AmazonPutWebRequest;
-import IncomingRequests.PutRequest;
-import IncomingResponses.LoginResponse;
-import OutgoingRequests.LoginRequest;
+import Amazon.AmazonRemoveWebRequest;
+import MinAuth.LoginResponse;
+import MinAuth.LoginRequest;
 import WebRequests.PostJsonWebRequest;
 import WebRequests.StringAsUrl;
 import rpc.RpcCallHandler;
 import rpc.RpcRequestStatus;
 import rpc.RpcResponse;
 
-public class PutHandler extends RpcCallHandler<PutRequest, RpcResponse> {
-    public PutHandler() {
-        super("/put", PutRequest.class, x -> {
+public class RemoveHandler extends RpcCallHandler<RemoveRequest, RpcResponse> {
+    public RemoveHandler() {
+        super("/remove", RemoveRequest.class, x -> {
             LoginResponse login = (LoginResponse)new PostJsonWebRequest(new StringAsUrl("https://miniauth.azurewebsites.net/api/account/login").get(),
                     new LoginRequest(x.Username, x.Password),
                     LoginResponse.class).resolve();
             if (!login.ErrorMessage.equals(""))
                 return new RpcResponse(x.RequestId, RpcRequestStatus.Error, login.ErrorMessage);
-            return new RpcResponse(x.RequestId, RpcRequestStatus.Ok, new AmazonPutWebRequest(x.Bucket, x.Id, x.Value).resolve());
+            return new RpcResponse(x.RequestId, RpcRequestStatus.Ok, new AmazonRemoveWebRequest(x.Bucket, x.Id).resolve());
         });
     }
 }

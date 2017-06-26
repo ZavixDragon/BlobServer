@@ -6,11 +6,11 @@ import Amazon.SharedValues.Algorithm;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-public final class HmacSigned implements Value<byte[]> {
+public final class SignHmac implements Value<byte[]> {
     private final Value<String> data;
     private final Value<byte[]> key;
 
-    public HmacSigned(Value<String> data, Value<byte[]> key) {
+    public SignHmac(Value<String> data, Value<byte[]> key) {
         this.data = data;
         this.key = key;
     }

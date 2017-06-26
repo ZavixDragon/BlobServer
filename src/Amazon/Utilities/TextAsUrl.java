@@ -5,10 +5,10 @@ import WebRequests.StringAsUrl;
 
 import java.net.URL;
 
-public final class UrlFromString implements Value<URL> {
+public final class TextAsUrl implements Value<URL> {
     private Value<String> url;
 
-    public UrlFromString(Value<String> url) {
+    public TextAsUrl(Value<String> url) {
         this.url = url;
     }
 

@@ -6,10 +6,10 @@ import Amazon.OO.Value;
 import java.math.BigInteger;
 import java.util.Locale;
 
-public final class BytesToHex extends Text {
+public final class BytesAsHex extends Text {
     private final Value<byte[]> bytes;
 
-    public BytesToHex(Value<byte[]> bytes) {
+    public BytesAsHex(Value<byte[]> bytes) {
         this.bytes = bytes;
     }
 

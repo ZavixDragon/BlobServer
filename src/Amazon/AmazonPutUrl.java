@@ -4,8 +4,7 @@ import Amazon.OO.FormattedText;
 import Amazon.OO.StringText;
 import Amazon.OO.Value;
 import Amazon.SharedValues.Protocol;
-import Amazon.SharedValues.RegionName;
-import Amazon.Utilities.UrlFromString;
+import Amazon.Utilities.TextAsUrl;
 
 import java.net.URL;
 
@@ -19,7 +18,7 @@ public class AmazonPutUrl implements Value<URL> {
     }
 
     public URL get() {
-        return new UrlFromString(
-                new FormattedText(new StringText("%s://s3-%s.amazonaws.com/%s/%s"), new Protocol(), new RegionName(), bucket, id)).get();
+        return new TextAsUrl(
+                new FormattedText(new StringText("%s://s3-%s.amazonaws.com/%s/%s"), new Protocol(), new StringText("us-west-2"), bucket, id)).get();
     }
 }

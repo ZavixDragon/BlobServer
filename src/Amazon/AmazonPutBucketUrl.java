@@ -8,15 +8,15 @@ import Amazon.Utilities.TextAsUrl;
 
 import java.net.URL;
 
-public class AmazonListUrl implements Value<URL> {
+public class AmazonPutBucketUrl implements Value<URL> {
     private final Value<String> bucket;
 
-    public AmazonListUrl(Value<String> bucket) {
+    public AmazonPutBucketUrl(Value<String> bucket) {
         this.bucket = bucket;
     }
 
     public URL get() {
         return new TextAsUrl(
-                new FormattedText(new StringText("%s://%s.s3.amazonaws.com/?list-type=2"), new Protocol(), bucket)).get();
+                new FormattedText(new StringText("%s://%s.s3.amazonaws.com/"), new Protocol(), bucket)).get();
     }
 }

@@ -1,4 +1,4 @@
-package WebRequests;
+package Amazon;
 
 import java.io.*;
 import java.net.HttpURLConnection;

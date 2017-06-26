@@ -3,12 +3,8 @@ package Amazon;
 import Amazon.OO.StringText;
 import Amazon.OO.Value;
 import Amazon.OnlyOnePerRequest.DateStamp;
-import Main.InputStreamToString;
-import WebRequests.AmazonRequest;
-import WebRequests.GetWebRequest;
 import WebRequests.WebRequest;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,7 +24,7 @@ public class AmazonRemoveWebRequest implements WebRequest<String> {
 
     public String resolve() {
         Value<URL> url = new AmazonGetUrl(bucket, id);
-        Map<String, String> headers = new AmazonRemoveHeaderBuilder(url, new DateStamp()).get().entrySet().stream().collect(Collectors.toMap(x -> x.getKey().get(), x -> x.getValue().get()));
+        Map<String, String> headers = new AmazonRemoveHeaderBuilder(url, new DateStamp(), new StringText("us-west-2")).get().entrySet().stream().collect(Collectors.toMap(x -> x.getKey().get(), x -> x.getValue().get()));
         return new AmazonRequest(url.get(), "DELETE", headers, null).resolve();
     }
 }

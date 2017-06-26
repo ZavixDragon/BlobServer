@@ -1,7 +1,7 @@
 package Amazon.SmartValues;
 
 import Amazon.OnlyOnePerRequest.DateStamp;
-import Amazon.Utilities.BytesToHex;
+import Amazon.Utilities.BytesAsHex;
 import Amazon.OO.FormattedText;
 import Amazon.OO.StringText;
 import Amazon.OO.Text;
@@ -17,20 +17,22 @@ public final class AuthorizationHeader extends Text {
     private final Value<String> httpMethod;
     private final Map<Value<String>, Value<String>> headers;
     private final DateStamp stamp;
+    private final Text region;
 
-    public AuthorizationHeader(Value<URL> endpoint, Value<String> httpMethod, Map<Value<String>, Value<String>> headers, DateStamp stamp) {
+    public AuthorizationHeader(Value<URL> endpoint, Value<String> httpMethod, Map<Value<String>, Value<String>> headers, DateStamp stamp, Text region) {
         this.endpoint = endpoint;
         this.httpMethod = httpMethod;
         this.headers = headers;
         this.stamp = stamp;
+        this.region = region;
     }
 
     public String get() {
         return new FormattedText(new StringText("%s-%s Credential=%s, SignedHeaders=%s, Signature=%s"),
                 new Scheme(),
                 new Algorithm(),
-                new Credential(stamp),
+                new Credential(stamp, region),
                 new CanonicalHeaderNames(headers),
-                new BytesToHex(new Signature(httpMethod, endpoint, headers, stamp))).get();
+                new BytesAsHex(new Signature(httpMethod, endpoint, headers, stamp, region))).get();
     }
 }

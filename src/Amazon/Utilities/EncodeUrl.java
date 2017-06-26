@@ -5,10 +5,10 @@ import Amazon.OO.Value;
 
 import java.net.URLEncoder;
 
-public final class UrlEncoded extends Text {
+public final class EncodeUrl extends Text {
     private final Value<String> url;
 
-    public UrlEncoded(Value<String> url) {
+    public EncodeUrl(Value<String> url) {
         this.url = url;
     }
 

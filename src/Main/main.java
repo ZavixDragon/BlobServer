@@ -1,9 +1,9 @@
 package Main;
 
-import Handlers.GetHandler;
-import Handlers.ListHandler;
-import Handlers.PutHandler;
-import Handlers.RemoveHandler;
+import Get.GetHandler;
+import List.ListHandler;
+import Put.PutHandler;
+import Remove.RemoveHandler;
 
 public class main {
     public static void main(String[] args) {

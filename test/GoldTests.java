@@ -1,10 +1,10 @@
-import IncomingRequests.GetRequest;
-import IncomingRequests.ListRequest;
-import IncomingRequests.PutRequest;
-import IncomingRequests.RemoveRequest;
+import Get.GetRequest;
+import List.ListRequest;
+import Put.PutRequest;
+import Remove.RemoveRequest;
 import Main.main;
-import OutgoingResponses.GetResponse;
-import OutgoingResponses.ListResponse;
+import Get.GetResponse;
+import List.ListResponse;
 import WebRequests.PostJsonWebRequest;
 import WebRequests.StringAsUrl;
 import org.junit.Assert;

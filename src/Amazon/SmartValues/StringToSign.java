@@ -7,7 +7,7 @@ import Amazon.OO.Text;
 import Amazon.OO.Value;
 import Amazon.SharedValues.Algorithm;
 import Amazon.SharedValues.Scheme;
-import Amazon.Utilities.BytesToHex;
+import Amazon.Utilities.BytesAsHex;
 import Amazon.Utilities.Sha256;
 
 import java.net.URL;
@@ -18,12 +18,14 @@ public final class StringToSign extends Text {
     private final Value<URL> endpoint;
     private final Map<Value<String>, Value<String>> headers;
     private final DateStamp stamp;
+    private final Text region;
 
-    public StringToSign(Value<String> httpMethod, Value<URL> endpoint, Map<Value<String>, Value<String>> headers, DateStamp stamp) {
+    public StringToSign(Value<String> httpMethod, Value<URL> endpoint, Map<Value<String>, Value<String>> headers, DateStamp stamp, Text region) {
         this.httpMethod = httpMethod;
         this.endpoint = endpoint;
         this.headers = headers;
         this.stamp = stamp;
+        this.region = region;
     }
 
     public String get() {
@@ -31,7 +33,7 @@ public final class StringToSign extends Text {
                 new Scheme(),
                 new Algorithm(),
                 new StringText(stamp.getDateTimeStamp()),
-                new CredentialScope(stamp),
-                new BytesToHex(new Sha256(new CanonicalRequest(httpMethod, endpoint, headers)))).get();
+                new CredentialScope(stamp, region),
+                new BytesAsHex(new Sha256(new CanonicalRequest(httpMethod, endpoint, headers)))).get();
     }
 }

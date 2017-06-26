@@ -9,14 +9,16 @@ import Amazon.SmartValues.CredentialScope;
 
 public final class Credential extends Text {
     private final DateStamp stamp;
+    private final Text region;
 
-    public Credential(DateStamp stamp) {
+    public Credential(DateStamp stamp, Text region) {
         this.stamp = stamp;
+        this.region = region;
     }
 
     public String get() {
         return new FormattedText(new StringText("%s/%s"),
                 new AccessKey(),
-                new CredentialScope(stamp)).get();
+                new CredentialScope(stamp, region)).get();
     }
 }

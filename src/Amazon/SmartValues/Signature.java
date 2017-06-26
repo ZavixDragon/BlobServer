@@ -1,16 +1,12 @@
 package Amazon.SmartValues;
 
 import Amazon.ConfigValues.SecretKey;
-import Amazon.OO.ConcattedText;
-import Amazon.OO.StringText;
-import Amazon.OO.TextAsBytes;
-import Amazon.OO.Value;
+import Amazon.OO.*;
 import Amazon.OnlyOnePerRequest.DateStamp;
-import Amazon.SharedValues.RegionName;
 import Amazon.SharedValues.Scheme;
 import Amazon.SharedValues.ServiceName;
 import Amazon.SharedValues.Termination;
-import Amazon.Utilities.HmacSigned;
+import Amazon.Utilities.SignHmac;
 
 import java.net.URL;
 import java.util.Map;
@@ -20,24 +16,26 @@ public final class Signature implements Value<byte[]> {
     private final Value<URL> endpoint;
     private final Map<Value<String>, Value<String>> headers;
     private final DateStamp stamp;
+    private final Text region;
 
-    public Signature(Value<String> httpMethod, Value<URL> endpoint, Map<Value<String>, Value<String>> headers, DateStamp stamp) {
+    public Signature(Value<String> httpMethod, Value<URL> endpoint, Map<Value<String>, Value<String>> headers, DateStamp stamp, Text region) {
         this.httpMethod = httpMethod;
         this.endpoint = endpoint;
         this.headers = headers;
         this.stamp = stamp;
+        this.region = region;
     }
 
     public byte[] get() {
-        return new HmacSigned(
-                new StringToSign(httpMethod, endpoint, headers, stamp),
-                new HmacSigned(
+        return new SignHmac(
+                new StringToSign(httpMethod, endpoint, headers, stamp, region),
+                new SignHmac(
                         new Termination(),
-                        new HmacSigned(
+                        new SignHmac(
                                 new ServiceName(),
-                                new HmacSigned(
-                                        new RegionName(),
-                                        new HmacSigned(
+                                new SignHmac(
+                                        region,
+                                        new SignHmac(
                                                 new StringText(stamp.getDateStamp()),
                                                 new TextAsBytes(
                                                         new ConcattedText(

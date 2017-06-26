@@ -1,4 +1,4 @@
-package IncomingRequests;
+package Get;
 
 import rpc.RpcRequest;
 

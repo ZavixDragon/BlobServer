@@ -1,4 +1,4 @@
-package OutgoingResponses;
+package Get;
 
 import rpc.RpcResponse;
 
