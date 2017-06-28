@@ -3,10 +3,10 @@ package Get;
 import rpc.RpcResponse;
 
 public final class GetResponse extends RpcResponse {
-    public final String JsonValue;
+    public final String Value;
 
-    public GetResponse(String requestId, String jsonValue) {
+    public GetResponse(String requestId, String value) {
         super(requestId);
-        JsonValue = jsonValue;
+        Value = value;
     }
 }

@@ -6,6 +6,6 @@ import Amazon.OO.Text;
 
 public final class AccessKey extends Text {
     public String get() {
-        return "XXXXXXXXXXXXXXXXXXXX";
+        return "AKIAIWXCPOEBE4JEKPIA";
     }
 }

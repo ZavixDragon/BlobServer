@@ -1,5 +1,6 @@
 package Main;
 
+import WebRequests.InputStreamToString;
 import com.google.gson.Gson;
 import rpc.RpcCallHandler;
 import rpc.RpcRequest;

@@ -22,8 +22,7 @@ public class AmazonRequest {
         HttpURLConnection connection = createHttpConnection(endpointUrl, httpMethod, headers);
         try {
             if ( requestBody != null ) {
-                DataOutputStream wr = new DataOutputStream(
-                        connection.getOutputStream());
+                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
                 wr.writeBytes(requestBody);
                 wr.flush();
                 wr.close();
@@ -36,17 +35,16 @@ public class AmazonRequest {
 
     public static String executeHttpRequest(HttpURLConnection connection) {
         try {
-            // Get Response
             InputStream is;
             try {
                 is = connection.getInputStream();
             } catch (IOException e) {
                 is = connection.getErrorStream();
             }
-
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
             String line;
             StringBuffer response = new StringBuffer();
+
             while ((line = rd.readLine()) != null) {
                 response.append(line);
                 response.append('\r');
@@ -56,27 +54,17 @@ public class AmazonRequest {
         } catch (Exception e) {
             throw new RuntimeException("Request failed. " + e.getMessage(), e);
         } finally {
-            if (connection != null) {
+            if (connection != null)
                 connection.disconnect();
-            }
         }
     }
 
-    public static HttpURLConnection createHttpConnection(URL endpointUrl,
-                                                         String httpMethod,
-                                                         Map<String, String> headers) {
+    public static HttpURLConnection createHttpConnection(URL endpointUrl, String httpMethod, Map<String, String> headers) {
         try {
             HttpURLConnection connection = (HttpURLConnection) endpointUrl.openConnection();
             connection.setRequestMethod(httpMethod);
-
-            if ( headers != null ) {
-                System.out.println("--------- Request headers ---------");
-                for ( String headerKey : headers.keySet() ) {
-                    System.out.println(headerKey + ": " + headers.get(headerKey));
-                    connection.setRequestProperty(headerKey, headers.get(headerKey));
-                }
-            }
-
+            for (String headerKey : headers.keySet())
+                connection.setRequestProperty(headerKey, headers.get(headerKey));
             connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
