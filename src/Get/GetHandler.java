@@ -1,12 +1,12 @@
 package Get;
 
-import Amazon.AmazonGetWebRequest;
+import Amazon.OO.OOText.SimpleText;
+import Amazon.Requests.AwsGetRequest;
 import rpc.RpcCallHandler;
 
 public class GetHandler extends RpcCallHandler<GetRequest, GetResponse> {
     public GetHandler() {
-        super("/get", GetRequest.class, x -> {
-            return new GetResponse(x.RequestId, new AmazonGetWebRequest(x.Bucket, x.Id).resolve());
-        });
+        super("/get", GetRequest.class, x ->
+                new GetResponse(x.RequestId, new AwsGetRequest(new SimpleText(x.Bucket), new SimpleText(x.Id)).get()));
     }
 }

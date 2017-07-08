@@ -1,6 +1,7 @@
 package Remove;
 
-import Amazon.AmazonRemoveWebRequest;
+import Amazon.OO.OOText.SimpleText;
+import Amazon.Requests.AwsRemoveRequest;
 import MinAuth.LoginResponse;
 import MinAuth.LoginRequest;
 import WebRequests.PostJsonWebRequest;
@@ -17,7 +18,8 @@ public class RemoveHandler extends RpcCallHandler<RemoveRequest, RpcResponse> {
                     LoginResponse.class).resolve();
             if (!login.ErrorMessage.equals(""))
                 return new RpcResponse(x.RequestId, RpcRequestStatus.Error, login.ErrorMessage);
-            return new RpcResponse(x.RequestId, RpcRequestStatus.Ok, new AmazonRemoveWebRequest(x.Bucket, x.Id).resolve());
+            new AwsRemoveRequest(new SimpleText(x.Bucket), new SimpleText(x.Id)).get();
+            return new RpcResponse(x.RequestId, RpcRequestStatus.Ok, "");
         });
     }
 }

@@ -1,6 +1,9 @@
 package Put;
 
-import Amazon.AmazonPutWebRequest;
+import Amazon.OO.OOBytes.CacheBytes;
+import Amazon.OO.OOBytes.SimpleBytes;
+import Amazon.OO.OOText.SimpleText;
+import Amazon.Requests.AwsPutRequest;
 import MinAuth.LoginResponse;
 import MinAuth.LoginRequest;
 import WebRequests.PostJsonWebRequest;
@@ -17,7 +20,8 @@ public class PutHandler extends RpcCallHandler<PutRequest, RpcResponse> {
                     LoginResponse.class).resolve();
             if (!login.ErrorMessage.equals(""))
                 return new RpcResponse(x.RequestId, RpcRequestStatus.Error, login.ErrorMessage);
-            return new RpcResponse(x.RequestId, RpcRequestStatus.Ok, new AmazonPutWebRequest(x.Bucket, x.Id, x.Content).resolve());
+            new AwsPutRequest(new SimpleText(x.Bucket), new SimpleText(x.Id), new CacheBytes(new SimpleBytes(x.Content))).get();
+            return new RpcResponse(x.RequestId, RpcRequestStatus.Ok, "");
         });
     }
 }

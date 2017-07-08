@@ -1,26 +1,22 @@
 package Amazon.SmartValues;
 
-import Amazon.OO.FormattedText;
-import Amazon.OO.StringText;
-import Amazon.OO.Text;
-import Amazon.OnlyOnePerRequest.DateStamp;
-import Amazon.SharedValues.ServiceName;
-import Amazon.SharedValues.Termination;
+import Amazon.OO.OOText.Format;
+import Amazon.OO.OOText.SimpleText;
+import Amazon.OO.OOText.Text;
+import Amazon.SimpleValues.DateStamp;
 
 public final class CredentialScope extends Text {
-    private final DateStamp stamp;
-    private final Text region;
+    private final Text value;
 
-    public CredentialScope(DateStamp stamp, Text region) {
-        this.stamp = stamp;
-        this.region = region;
+    public CredentialScope(DateStamp stamp, Text region, Text serviceName, Text termination) {
+        value = new Format(new SimpleText("%s/%s/%s/%s"),
+                    new SimpleText(stamp.getDateStamp()),
+                    region,
+                    serviceName,
+                    termination);
     }
 
     public String get() {
-        return new FormattedText(new StringText("%s/%s/%s/%s"),
-                new StringText(stamp.getDateStamp()),
-                region,
-                new ServiceName(),
-                new Termination()).get();
+        return value.get();
     }
 }

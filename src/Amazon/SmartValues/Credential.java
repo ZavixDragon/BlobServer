@@ -1,24 +1,19 @@
 package Amazon.SmartValues;
 
-import Amazon.OO.FormattedText;
-import Amazon.OO.StringText;
-import Amazon.OO.Text;
-import Amazon.ConfigValues.AccessKey;
-import Amazon.OnlyOnePerRequest.DateStamp;
-import Amazon.SmartValues.CredentialScope;
+import Amazon.OO.OOText.Format;
+import Amazon.OO.OOText.SimpleText;
+import Amazon.OO.OOText.Text;
 
 public final class Credential extends Text {
-    private final DateStamp stamp;
-    private final Text region;
+    private final Text value;
 
-    public Credential(DateStamp stamp, Text region) {
-        this.stamp = stamp;
-        this.region = region;
+    public Credential(Text accessKey, Text credentialScope) {
+        value = new Format(new SimpleText("%s/%s"),
+                accessKey,
+                credentialScope);
     }
 
     public String get() {
-        return new FormattedText(new StringText("%s/%s"),
-                new AccessKey(),
-                new CredentialScope(stamp, region)).get();
+        return value.get();
     }
 }

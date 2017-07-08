@@ -3,9 +3,9 @@ package Get;
 import rpc.RpcResponse;
 
 public final class GetResponse extends RpcResponse {
-    public final String Value;
+    public final byte[] Value;
 
-    public GetResponse(String requestId, String value) {
+    public GetResponse(String requestId, byte[] value) {
         super(requestId);
         Value = value;
     }

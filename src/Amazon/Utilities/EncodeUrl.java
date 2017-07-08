@@ -1,6 +1,6 @@
 package Amazon.Utilities;
 
-import Amazon.OO.Text;
+import Amazon.OO.OOText.Text;
 import Amazon.OO.Value;
 
 import java.net.URLEncoder;
